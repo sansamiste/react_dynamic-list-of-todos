@@ -12,7 +12,17 @@ export const TodoFilter: React.FC<Props> = ({ onSelect, onInput, query }) => (
       <span className="select">
         <select
           data-cy="statusSelect"
-          onChange={event => onSelect(event.target.value as FilterStatus)}
+          onChange={event => {
+            const value = event.target.value;
+
+            if (
+              value === FilterStatus.All ||
+              value === FilterStatus.Active ||
+              value === FilterStatus.Completed
+            ) {
+              onSelect(value as FilterStatus);
+            }
+          }}
         >
           <option value={FilterStatus.All}>All</option>
           <option value={FilterStatus.Active}>Active</option>
